@@ -1,8 +1,6 @@
 const Koa = require('koa');
 const Router = require('koa-router');
 const serve = require('koa-static');
-const Webpack = require('webpack');
-const koaWebpack = require('koa-webpack');
 
 const app = new Koa();
 const router = new Router();
@@ -11,11 +9,22 @@ const GooglePlaces = require('./src/libs/GooglePlaces');
 const apiRoutes= require('./src/routes');
 const config = require('./src/config');
 const db = require('./src/db');
-const webpackConfig = require('./webpack.config');
 
 function initLibs (ctx) {
+  if (!config.places.api_key) {
+    console.error(`Missing Google Places KEY!`);
+  }
+
   ctx.places = new GooglePlaces(config.places.api_key);
   return ctx;
+}
+
+async function initWebpackMiddleware() {
+  const webpackConfig = require('./webpack.config');
+  const Webpack = require('webpack');
+  const koaWebpack = require('koa-webpack');
+  const compiler = Webpack(webpackConfig);
+  return await koaWebpack({ compiler });
 }
 
 (async function () {
@@ -29,8 +38,7 @@ function initLibs (ctx) {
   if (process.env.NODE_ENV === "production") {
     app.use(serve('./build/public', {index: 'index.html'}));
   } else {
-    const compiler = Webpack(webpackConfig);
-    const middleware = await koaWebpack({ compiler });
+    const middleware = await initWebpackMiddleware({ compiler });
     app.use(middleware);
   }
 

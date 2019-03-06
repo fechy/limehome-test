@@ -26,7 +26,7 @@ module.exports = async (ctx) => {
 
     ctx.body = JSON.stringify(formattedResults);
   } catch (e) {
-    console.log(e);
+    console.error(e);
     ctx.statusCode = 400;
     ctx.body = e.toString();
   }

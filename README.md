@@ -4,11 +4,12 @@
 - Have docker installed, or node >= v10 locally
 - Get a Google Places API key (Get a free one [here](https://developers.google.com/places/web-service/get-api-key))
 - Create a `.env` file copying the contents of `.env.example` and replace the `GOOGLE_PLACES_API_KEY` with your own key
+- Mongo should be running in your machine or run `docker-compose -f docker/docker-compose.yml up -d` to spin up a mongo db docker container.
 
 ## To make it work
 #### Using Docker:
-
-- Run `docker-compose -f docker/docker-compose.yml up -d`
+- IMPORTANT: Set up `GOOGLE_PLACES_API_KEY` in your `.env.docker` before the next step.
+- Run `docker-compose -f docker/docker-compose.app.yml up -d`
 - Navigate in your browser to [localhost:3000](http://localhost:3000)
 
 #### Using Node:
