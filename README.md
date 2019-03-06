@@ -8,7 +8,7 @@
 ## To make it work
 #### Using Docker:
 
-- Run docker-compose -f docker/docker-compose.yml up -d
+- Run `docker-compose -f docker/docker-compose.yml up -d`
 - Navigate in your browser to [localhost:3000](http://localhost:3000)
 
 #### Using Node:
@@ -24,4 +24,8 @@ Now follow run this commands:
 ### API Endpoints
 - GET `/api/places`: List of Hotels the user can book
 - POST `/api/book/:id`: Books a room in an hotel
-- GET `/api/books`: List of rooms booked by the current user
+- POST `/api/book/:id/cancel`: Cancels a booking
+- GET `/api/bookings`: List of rooms booked by the current user
+
+### Tests
+To run the tests, just run `npm run test`

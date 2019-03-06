@@ -1,3 +1,7 @@
+// Mock mongoose model
+const MockModel = require('jest-mongoose-mock');
+jest.mock('../models/bookings', () => new MockModel());
+
 const route = require('./places');
 
 describe('Route: /api/places', function () {

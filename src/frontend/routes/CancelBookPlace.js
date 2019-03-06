@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-class BookPlace extends React.Component
+class CancelBookPlace extends React.Component
 {
   constructor(props) {
     super(props);
@@ -14,7 +14,7 @@ class BookPlace extends React.Component
 
   componentDidMount() {
     const { match: { params } } = this.props;
-    axios.post(`/api/book/${params.id}`)
+    axios.post(`/api/book/${params.id}/cancel`)
       .then(result => result.data)
       .then(({ ok, error }) => this.setState({ loading: false, result: ok, error }))
       .catch(error => this.setState({ loading: false, error }));
@@ -22,12 +22,12 @@ class BookPlace extends React.Component
 
   _renderResult() {
     const { loading, result, error } = this.state;
-    let message = 'Booking. Please wait...';
+    let message = 'Cancelling Booking. Please wait...';
     if (!loading) {
       if (result) {
-        return 'Booked successfully!';
+        return 'Booking cancelled successfully!';
       } else {
-        return `Error Booking! ${error}`;
+        return `Error Cancelling Booking! ${error}`;
       }
     }
 
@@ -42,4 +42,4 @@ class BookPlace extends React.Component
     )
   }
 }
-export default BookPlace;
+export default CancelBookPlace;

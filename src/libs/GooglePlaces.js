@@ -41,7 +41,7 @@ class GooglePlaces {
       const args = {
         key: this._key,
         placeid: id,
-        fields: 'name'
+        fields: 'name,formatted_address'
       };
 
       results = await this._client.get(`details/json?${objectToArgs(args)}`);
