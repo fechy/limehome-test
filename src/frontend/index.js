@@ -16,13 +16,40 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      userId: null
+      userId: null,
+      checkInterval: null
+    };
+
+    this._checkUserIdCookie = this._checkUserIdCookie.bind(this);
+  }
+
+  _checkUserIdCookie() {
+    if (!this.state.userId) {
+      const userId = Cookies.get('limehome:user_id');
+      if (!userId) {
+        return;
+      }
+
+      if (this.state.checkInterval) {
+        clearInterval(this.state.checkInterval);
+      }
+
+      this.setState({
+        userId,
+        checkInterval: null
+      });
     }
   }
 
   componentWillMount() {
-    const userId = Cookies.get('limehome:user_id');
-    this.setState({ userId });
+    this._checkUserIdCookie();
+  }
+
+  componentDidMount() {
+    if (!this.state.userId) {
+      const checkInterval = setInterval(this._checkUserIdCookie, 1000);
+      this.setState({ checkInterval });
+    }
   }
 
   render() {
