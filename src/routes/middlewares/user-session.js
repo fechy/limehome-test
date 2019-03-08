@@ -28,10 +28,10 @@ function randomNamePicker() {
 
 async function userSessionCheckMiddleware(ctx, next) {
   const { session } = ctx;
-  if (session.isNew) {
+
+  if (!ctx.cookies.get('limehome:user_id')) {
     const newUser = new User({ name: randomNamePicker() });
     await newUser.save();
-
     session.user_id = newUser._id;
   }
 
