@@ -27,7 +27,7 @@ Now run this commands:
 - POST `/api/book/:id`: Books a room in an hotel
 - POST `/api/book/:id/cancel`: Cancels a booking
 - GET `/api/bookings`: List of rooms booked by all users
-- GET `/users/<USER_ID>/bookings`: List of rooms booked by the given user
+- GET `/api/users/<USER_ID>/bookings`: List of rooms booked by the given user
 
 _NOTE_: You can find the current `USER_ID` on the footer of the page
 
