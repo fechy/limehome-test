@@ -17,7 +17,7 @@ module.exports = async (ctx) => {
     const { data, status } = await ctx.places.get('hotel');
     ctx.response.statusCode = status;
 
-    const userBookings = await Bookings.find({}, 'property_id');
+    const userBookings = await Bookings.find({ user: ctx.user.id }, 'property_id');
     const allBookings = userBookings.reduce((res, { property_id }) => {
       res.push(property_id);
       return res;

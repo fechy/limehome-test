@@ -3,7 +3,10 @@ const Bookings = require('../models/bookings');
 module.exports = async (ctx) => {
   const { id } = ctx.params;
   try {
-    const booking = await Bookings.findOne({ property_id: id });
+    const booking = await Bookings.findOne({
+      property_id: id,
+      user: ctx.user.id
+    });
     if (!booking) {
       throw new Error(`There is no booking for the given place`);
     }

@@ -1,3 +1,4 @@
+const ObjectId = require('mongoose').Types.ObjectId;
 const Bookings = require('../models/bookings');
 
 function extractCityFromAddress(formattedAddress) {
@@ -23,7 +24,7 @@ module.exports = async (ctx) => {
       throw new Error(`Cannot find details for given place. Error No: ${status}`);
     }
 
-    if (await Bookings.count({ property_id: id }) > 0) {
+    if (await Bookings.count({ property_id: id, user: ctx.user.id }) > 0) {
       throw new Error(`You already have a booking for the given place`);
     }
 
@@ -34,6 +35,7 @@ module.exports = async (ctx) => {
       property_name: name,
       address: formatted_address,
       city: extractCityFromAddress(formatted_address),
+      user: ObjectId(ctx.user.id),
       bookedAt: new Date().toDateString()
     };
 

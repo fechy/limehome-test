@@ -18,7 +18,8 @@ describe('Route: /api/book/:id', function () {
           data: {
             result:
               {
-                name: 'test place'
+                name: 'test place',
+                formatted_address: 'fake-str 72, 80000 München, Deutscheland'
               },
           },
           status: 200
@@ -30,7 +31,10 @@ describe('Route: /api/book/:id', function () {
       params: {
         id: placeId
       },
-      body: null
+      body: null,
+      user: {
+        id: 123456789
+      }
     };
 
     await book(ctx);
@@ -56,7 +60,10 @@ describe('Route: /api/book/:id', function () {
       params: {
         id: placeId
       },
-      body: null
+      body: null,
+      user: {
+        id: 123456789
+      }
     };
 
     await book(ctx);

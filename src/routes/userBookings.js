@@ -5,7 +5,12 @@ module.exports = async (ctx) => {
   let error = null;
 
   try {
-    bookings = await Bookings.find()
+    const { user_id } = ctx.params;
+    if (user_id !== ctx.session.user_id) {
+      throw new Error('You dont have permission to access this resource');
+    }
+
+    bookings = await Bookings.find({ user: user_id })
       .populate('user')
       .exec();
   } catch (e) {

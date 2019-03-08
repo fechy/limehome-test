@@ -17,7 +17,10 @@ describe('Route: /api/places', function () {
       response: {
         statusCode: null
       },
-      body: null
+      body: null,
+      user: {
+        id: 123456789
+      }
     };
 
     await route(ctx);
@@ -39,7 +42,10 @@ describe('Route: /api/places', function () {
       response: {
         statusCode: null
       },
-      body: null
+      body: null,
+      user: {
+        id: 123456789
+      }
     };
 
     await route(ctx);

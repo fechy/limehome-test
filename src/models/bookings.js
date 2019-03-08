@@ -5,9 +5,6 @@ const schema = new Schema({
   property_id: {
     type: String,
     required: true,
-    index: {
-      unique: true
-    }
   },
   property_name: {
     type: String,
@@ -19,10 +16,14 @@ const schema = new Schema({
   address: {
     type: String
   },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'Users'
+  },
   bookedAt: {
     type: Date
   }
-});
+}, { versionKey: false });
 
 const Bookings = mongoose.model('Bookings', schema);
 

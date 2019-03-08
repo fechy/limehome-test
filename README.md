@@ -26,7 +26,16 @@ Now follow run this commands:
 - GET `/api/places`: List of Hotels the user can book
 - POST `/api/book/:id`: Books a room in an hotel
 - POST `/api/book/:id/cancel`: Cancels a booking
-- GET `/api/bookings`: List of rooms booked by the current user
+- GET `/api/bookings`: List of rooms booked by all users
+- GET `/users/<USER_ID>/bookings`: List of rooms booked by the given user
+
+_NOTE_: You can find the current `USER_ID` on the footer of the page
 
 ### Tests
 To run the tests, just run `npm run test`
+
+### Missing features (AKA I would need more time to implement):
+[ ] Better looking UI
+[ ] Login/Sign-up (Currently the user is auto-created on first session)
+[ ] Better mock up for MongoDB models
+[ ] More tests

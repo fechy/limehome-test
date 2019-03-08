@@ -16,8 +16,12 @@ class BookPlace extends React.Component
     const { match: { params } } = this.props;
     axios.post(`/api/book/${params.id}`)
       .then(result => result.data)
-      .then(({ ok, error }) => this.setState({ loading: false, result: ok, error }))
-      .catch(error => this.setState({ loading: false, error }));
+      .then(({ ok, error }) => {
+        this.setState({ loading: false, result: ok, error });
+      })
+      .catch(error => {
+        this.setState({ loading: false, error });
+      });
   }
 
   _renderResult() {
@@ -25,13 +29,17 @@ class BookPlace extends React.Component
     let message = 'Booking. Please wait...';
     if (!loading) {
       if (result) {
-        return 'Booked successfully!';
+        return (
+            <h4 className="message-info">Booked successfully!</h4>
+        );
       } else {
-        return `Error Booking! ${error}`;
+        return (
+          <h4 className="message-error">Error Booking! {error}</h4>
+        )
       }
     }
 
-    return (<h4>{message}</h4>)
+    return (<h4 className="message-info">{message}</h4>)
   }
 
   render() {

@@ -13,13 +13,13 @@ const ActionButton = ({ id, name, booked }) => {
 
   return (
     <Link to={url} title={tooltip}>
-      <button>{buttonMsg}</button>
+      <button className="action-button">{buttonMsg}</button>
     </Link>
   );
 };
 
 export default ({ property_id, property_name, booked = false }) => (
-  <li id={`item-${property_id}`}>
+  <li id={`item-${property_id}`} className="item">
     <span className="property-name">{property_name}</span>&nbsp;
     <ActionButton id={property_id} booked={booked} name={property_name} />
   </li>

@@ -50,6 +50,13 @@ module.exports = (options) => {
 		module: {
 			rules: [
 				{
+					test: /\.css$/,
+					use: [
+						{ loader: "style-loader" },
+						{ loader: "css-loader" }
+					]
+				},
+				{
 					test: /\.(js|jsx)/,
 					loader: 'babel-loader',
 					exclude: /node_modules/,
@@ -59,7 +66,7 @@ module.exports = (options) => {
 				{test: /\.json/, loader: 'json'},
 				{test: /\.(woff|woff2)/, loader: 'url?limit=100000'},
 				{test: /\.(png|jpg|jpeg|gif|svg)/, loader: 'url?limit=100000'},
-				{test: /\.(ttf|eot)/, loader: 'file'}
+				{test: /\.(ttf|eot)/, loader: 'file'},
 			]
 		},
 

@@ -1,5 +1,6 @@
 const Koa = require('koa');
 const Router = require('koa-router');
+const session = require('koa-session');
 const serve = require('koa-static');
 
 const app = new Koa();
@@ -31,6 +32,17 @@ try {
   (async function () {
     // Init DB
     await db(config.db.conn);
+
+    app.keys = ['FB-ee_hw5$f?UEQn#?ZkvuKxsq*bK+XPvFFGW_F?C95^%BDZhCt%djF6Nf*McvrmH9d4^'];
+
+    const CONFIG = {
+      key: 'limehome:sess',
+      httpOnly: false, // Should be TRUE for production btu for the test ¯\_(ツ)_/¯
+      maxAge: 'session', // !!the cookie expires when session/browser is closed
+    };
+
+    // Start session middleware
+    app.use(session(CONFIG, app));
 
     // Add Google places to the context
     app.context = initLibs(app.context);

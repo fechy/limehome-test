@@ -1,0 +1,13 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const schema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+}, { versionKey: false });
+
+const Users = mongoose.model('Users', schema);
+
+module.exports = Users;
