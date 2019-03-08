@@ -2,16 +2,19 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-  place_id: {
+  property_id: {
     type: String,
     required: true,
     index: {
       unique: true
     }
   },
-  name: {
+  property_name: {
     type: String,
     required: true,
+  },
+  city: {
+    type: String
   },
   address: {
     type: String

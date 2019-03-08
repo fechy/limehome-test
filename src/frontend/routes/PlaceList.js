@@ -26,7 +26,7 @@ class PlaceList extends React.Component
         <h1>List of Bookable Hotels</h1>
         {this.state.loading && <div>Loading</div>}
         <ul>
-          {this.state.list.map((row) => <Item key={row.place_id} {...row} />)}
+          {this.state.list.map((row) => <Item key={row.property_id} {...row} />)}
         </ul>
       </div>
     );

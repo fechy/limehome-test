@@ -1,10 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default ({ place_id, name, booked = false }) => (
-  <li key={place_id}>
-    <span>{name}</span>&nbsp;
-    {!booked && <Link to={`/book/${place_id}`} title={`Click to book a place in ${name}`}><button>BOOK</button></Link>}
-    {booked && <Link to={`/book/${place_id}/cancel`} title={`Click to cancel a booking in ${name}`}><button>CANCEL BOOKING</button></Link>}
+const ActionButton = ({ id, name, booked }) => {
+  let url = `/book/${id}`;
+  let tooltip = `Click to book a place in ${name}`;
+  let buttonMsg = 'BOOK';
+  if (booked) {
+    url += `/cancel`;
+    tooltip = `Click to cancel a booking in ${name}`;
+    buttonMsg = 'CANCEL BOOKING';
+  }
+
+  return (
+    <Link to={url} title={tooltip}>
+      <button>{buttonMsg}</button>
+    </Link>
+  );
+};
+
+export default ({ property_id, property_name, booked = false }) => (
+  <li id={`item-${property_id}`}>
+    <span className="property-name">{property_name}</span>&nbsp;
+    <ActionButton id={property_id} booked={booked} name={property_name} />
   </li>
 );

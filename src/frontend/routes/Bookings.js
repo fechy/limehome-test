@@ -27,7 +27,7 @@ class Bookings extends React.Component
         <h1>List of Bookings</h1>
         {this.state.loading && <div>Loading</div>}
         <ul>
-          {this.state.bookings.map((row) => <Item key={row.place_id} booked={true} {...row} />)}
+          {this.state.bookings.map((row) => <Item key={row.property_id} booked={true} {...row} />)}
           {!this.state.loading &&
             this.state.bookings.length === 0 && <li>You have no bookings to show</li>
           }

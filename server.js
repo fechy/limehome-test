@@ -27,33 +27,33 @@ async function initWebpackMiddleware() {
   return await koaWebpack({ compiler });
 }
 
-(async function () {
-  // Init DB
-  await db(config.db.conn);
+try {
+  (async function () {
+    // Init DB
+    await db(config.db.conn);
 
-  // Add Google places to the context
-  app.context = initLibs(app.context);
+    // Add Google places to the context
+    app.context = initLibs(app.context);
 
-  // Set hot module if on development
-  if (process.env.NODE_ENV === "production") {
-    app.use(serve('./build/public', {index: 'index.html'}));
-  } else {
-    const middleware = await initWebpackMiddleware({ compiler });
-    app.use(middleware);
-  }
+    // Set hot module if on development
+    if (process.env.NODE_ENV === "production") {
+      app.use(serve('./build/public', {index: 'index.html'}));
+    } else {
+      const middleware = await initWebpackMiddleware();
+      app.use(middleware);
+    }
 
-  // * API
-  apiRoutes(router);
+    // * API
+    apiRoutes(router);
 
-  app.use(router.routes());
-  app.use(router.allowedMethods());
+    app.use(router.routes());
+    app.use(router.allowedMethods());
 
-  try {
     app.listen(config.port, () => {
-      console.info(`Application started on port ${config.port}`);
+      console.info(`Application started on port ${config.port} in ${process.env.NODE_ENV} mode`);
     });
-  } catch (e) {
-    console.error('Unable to start Application:');
-    console.error(e);
-  }
-})();
+  })();
+} catch (e) {
+  console.error('Unable to start Application:');
+  console.error(e);
+}

@@ -1,5 +1,17 @@
 const Bookings = require('../models/bookings');
 
+function extractCityFromAddress(formattedAddress) {
+  const cleaned = formattedAddress.split(',')
+    .map(v => v.trim());
+
+  const city = cleaned[cleaned.length - 2].match(/([a-z\u00F0-\u02AF\s]{1,})$/i);
+  if (city.length > 0) {
+    return city[0].trim();
+  }
+
+  return formattedAddress;
+}
+
 module.exports = async (ctx) => {
   const { id } = ctx.params;
   let statusCode = 400;
@@ -11,16 +23,17 @@ module.exports = async (ctx) => {
       throw new Error(`Cannot find details for given place. Error No: ${status}`);
     }
 
-    if (await Bookings.count({ place_id: id }) > 0) {
+    if (await Bookings.count({ property_id: id }) > 0) {
       throw new Error(`You already have a booking for the given place`);
     }
 
     const { result: { name, formatted_address } } = data;
 
     const modelData = {
-      place_id: id,
-      name,
+      property_id: id,
+      property_name: name,
       address: formatted_address,
+      city: extractCityFromAddress(formatted_address),
       bookedAt: new Date().toDateString()
     };
 
